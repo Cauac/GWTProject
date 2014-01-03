@@ -1,0 +1,12 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:SimplePanel styleName="row">
+        <g:VerticalPanel styleName="well col-md-3 col-md-offset-4">
+            <g:Label text="Authentication" styleName="text-center lead"/>
+            <g:Label text="Login:"/>
+            <g:TextBox ui:field="login" styleName="form-control input-lg"/>
+            <g:Label text="Password:"/>
+            <g:TextBox ui:field="password" styleName="form-control input-lg"/>
+            <g:Button styleName="btn btn-primary btn-block" ui:field="addButton" text="Login" width="250"/>
+        </g:VerticalPanel>
+    </g:SimplePanel>
+</ui:UiBinder>
