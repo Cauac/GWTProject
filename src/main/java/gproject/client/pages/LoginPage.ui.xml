@@ -1,12 +1,16 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-    <g:SimplePanel styleName="row">
-        <g:VerticalPanel styleName="well col-md-3 col-md-offset-4">
-            <g:Label text="Authentication" styleName="text-center lead"/>
-            <g:Label text="Login:"/>
-            <g:TextBox ui:field="login" styleName="form-control input-lg"/>
-            <g:Label text="Password:"/>
-            <g:TextBox ui:field="password" styleName="form-control input-lg"/>
-            <g:Button styleName="btn btn-primary btn-block" ui:field="addButton" text="Login" width="250"/>
-        </g:VerticalPanel>
-    </g:SimplePanel>
+    <g:HTMLPanel styleName="row">
+        <form action="/j_spring_security_check" method="post" role="form" class="well col-md-3 col-md-offset-4">
+            <h3 class="text-center">Authentication</h3>
+            <div class="form-group">
+                <label>Login:</label>
+                <input class="form-control input-lg" name="j_username" placeholder="login"/>
+            </div>
+            <div class="form-group">
+                <label>Password:</label>
+                <input class="form-control input-lg" name="j_password" placeholder="password" type="password"/>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit">Login</button>
+        </form>
+    </g:HTMLPanel>
 </ui:UiBinder>

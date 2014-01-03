@@ -23,26 +23,26 @@ public class Menu extends Composite {
         initMenu();
     }
 
-    @UiField
-    MenuItem photo;
-    @UiField
-    MenuItem comment;
-    @UiField
-    MenuItem account;
-    @UiField
-    MenuItem friend;
-    @UiField
-    MenuItem findFriend;
-    @UiField
-    MenuItem statistic;
+//    @UiField
+//    MenuItem photo;
+//    @UiField
+//    MenuItem comment;
+//    @UiField
+//    MenuItem account;
+//    @UiField
+//    MenuItem friend;
+//    @UiField
+//    MenuItem findFriend;
+//    @UiField
+//    MenuItem statistic;
 
     void initMenu() {
-        photo.setScheduledCommand(new MenuCommand("photo"));
-        comment.setScheduledCommand(new MenuCommand("comment"));
-        account.setScheduledCommand(new MenuCommand("account"));
-        friend.setScheduledCommand(new MenuCommand("friend"));
-        findFriend.setScheduledCommand(new MenuCommand("findFriend"));
-        statistic.setScheduledCommand(new MenuCommand("statistic"));
+//        photo.setScheduledCommand(new MenuCommand("photo"));
+//        comment.setScheduledCommand(new MenuCommand("comment"));
+//        account.setScheduledCommand(new MenuCommand("account"));
+//        friend.setScheduledCommand(new MenuCommand("friend"));
+//        findFriend.setScheduledCommand(new MenuCommand("findFriend"));
+//        statistic.setScheduledCommand(new MenuCommand("statistic"));
     }
 
     class MenuCommand implements Command {

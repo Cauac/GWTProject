@@ -1,31 +1,22 @@
 package gproject.client.pages;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.client.ui.Button;
+import gproject.client.service.AuthService;
+import gproject.client.service.AuthServiceAsync;
 
 public class LoginPage extends Composite {
 
-    interface LoginPageUiBinder extends UiBinder<Widget, LoginPage> {
-    }
-
     static private LoginPage _instance = null;
+
+    private AuthServiceAsync authService = GWT.create(AuthService.class);
 
     private static LoginPageUiBinder uiBinder = GWT.create(LoginPageUiBinder.class);
 
-    @UiField
-    Button addButton;
-    @UiField
-    TextBox login;
-    @UiField
-    TextBox password;
+    interface LoginPageUiBinder extends UiBinder<Widget, LoginPage> {
+    }
 
     public static LoginPage getInstance() {
         if (null == _instance) {
@@ -36,10 +27,5 @@ public class LoginPage extends Composite {
 
     public LoginPage() {
         initWidget(uiBinder.createAndBindUi(this));
-    }
-
-    @UiHandler("addButton")
-    public void handleClick(ClickEvent clickEvent) {
-        History.newItem("photo");
     }
 }

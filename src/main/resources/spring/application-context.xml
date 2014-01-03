@@ -6,5 +6,24 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="gproject"/>
+    <context:annotation-config/>
 
+    <bean name="MongoClient" class="com.mongodb.MongoClient">
+        <constructor-arg>
+            <value type="java.lang.String">127.0.0.1</value>
+        </constructor-arg>
+        <constructor-arg>
+            <value type="java.lang.Integer">27017</value>
+        </constructor-arg>
+    </bean>
+
+    <bean name="userDAO" class="gproject.server.dao.MongoUserDAO">
+        <property name="mongoClient" ref="MongoClient"/>
+        <property name="dbName" value="local"/>
+    </bean>
+
+    <bean class="gproject.server.dao.MongoFlickrDAO">
+        <property name="mongoClient" ref="MongoClient"/>
+        <property name="dbName" value="local"/>
+    </bean>
 </beans>
