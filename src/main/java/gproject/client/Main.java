@@ -9,7 +9,7 @@ import gproject.client.pages.Menu;
 public class Main implements EntryPoint {
     @Override
     public void onModuleLoad() {
-        RootPanel.get("header").add(new Menu());
+        RootPanel.get("header").add(Menu.getInstance());
         String initToken = History.getToken();
 
         if (initToken.length() == 0) {

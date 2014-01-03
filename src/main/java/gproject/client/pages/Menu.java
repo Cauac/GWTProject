@@ -6,7 +6,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.MenuItem;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
 public class Menu extends Composite {
@@ -14,36 +14,27 @@ public class Menu extends Composite {
     interface MenuUiBinder extends UiBinder<Widget, Menu> {
     }
 
-    static private LoginPage _instance = null;
+    static private Menu _instance = null;
 
     private static MenuUiBinder uiBinder = GWT.create(MenuUiBinder.class);
 
+    public static Menu getInstance() {
+        if (null == _instance) {
+            _instance = new Menu();
+        }
+        return _instance;
+    }
+
     public Menu() {
         initWidget(uiBinder.createAndBindUi(this));
-        initMenu();
     }
 
-//    @UiField
-//    MenuItem photo;
-//    @UiField
-//    MenuItem comment;
-//    @UiField
-//    MenuItem account;
-//    @UiField
-//    MenuItem friend;
-//    @UiField
-//    MenuItem findFriend;
-//    @UiField
-//    MenuItem statistic;
-
-    void initMenu() {
-//        photo.setScheduledCommand(new MenuCommand("photo"));
-//        comment.setScheduledCommand(new MenuCommand("comment"));
-//        account.setScheduledCommand(new MenuCommand("account"));
-//        friend.setScheduledCommand(new MenuCommand("friend"));
-//        findFriend.setScheduledCommand(new MenuCommand("findFriend"));
-//        statistic.setScheduledCommand(new MenuCommand("statistic"));
+    public void setVisible(boolean value) {
+        menu.setVisible(true);
     }
+
+    @UiField
+    HTML menu;
 
     class MenuCommand implements Command {
 

@@ -19,8 +19,8 @@ public class PhotoPage extends Composite {
 
     private static PhotoPageUiBinder uiBinder = GWT.create(PhotoPageUiBinder.class);
 
-    @UiField
-    Button addButton;
+//    @UiField
+//    Button addButton;
 
     public static PhotoPage getInstance() {
         if (null == _instance) {
@@ -33,8 +33,8 @@ public class PhotoPage extends Composite {
         initWidget(uiBinder.createAndBindUi(this));
     }
 
-    @UiHandler("addButton")
-    public void handleClick(ClickEvent clickEvent) {
-        History.newItem("login");
-    }
+//    @UiHandler("addButton")
+//    public void handleClick(ClickEvent clickEvent) {
+//        History.newItem("login");
+//    }
 }
