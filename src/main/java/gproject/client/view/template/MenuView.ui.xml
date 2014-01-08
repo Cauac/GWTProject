@@ -1,6 +1,5 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-    <g:HTML ui:field="menu" visible="false">
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <g:HTML styleName="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">HOME</a>
@@ -19,6 +18,5 @@
                     </ul>
                 </div>
             </div>
-        </div>
-    </g:HTML>
+        </g:HTML>
 </ui:UiBinder>

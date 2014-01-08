@@ -1,7 +1,6 @@
-package gproject.server.services.authentication;
+package gproject.server.services;
 
 import com.mongodb.DBObject;
-import gproject.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
