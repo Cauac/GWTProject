@@ -1,8 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-    <!--<g:HorizontalPanel>-->
-        <!--<g:Button ui:field="addButton" text="Photo" width="250"/>-->
-    <!--</g:HorizontalPanel>-->
-    <g:HTML>
-        <button>type</button>
-    </g:HTML>
+               <g:SimplePanel styleName="container">
+                <g:FlexTable ui:field="table" styleName="table table-striped" cellPadding="3" cellSpacing="5">
+                </g:FlexTable>
+               </g:SimplePanel>
 </ui:UiBinder>

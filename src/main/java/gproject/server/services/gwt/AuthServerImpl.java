@@ -1,4 +1,4 @@
-package gproject.server.auth;
+package gproject.server.services.gwt;
 
 import gproject.client.service.AuthService;
 import org.springframework.security.core.context.SecurityContextHolder;

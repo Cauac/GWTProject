@@ -49,7 +49,7 @@ public class NavigationListener implements ValueChangeHandler<String> {
                 if (s) {
                     Menu.getInstance().setVisible(true);
                     panel.get().clear();
-                    panel.get("content").add(PhotoPage.getInstance());
+                    panel.get().add(PhotoPage.getInstance());
                 }
             }
         });
