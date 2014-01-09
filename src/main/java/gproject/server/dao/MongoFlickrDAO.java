@@ -122,21 +122,10 @@ public class MongoFlickrDAO extends MongoDAO {
         result.put("comments", readComments(commentsIdList));
         result.put("dates", dateList);
         result.put("values", valueList);
-//        try {
-//            while (cursor.hasNext()) {
-//                DBObject dateObject = cursor.next();
-//                dateObject.removeField("_id");
-//                String dateFieldName = dateObject.keySet().iterator().next();
-//                commentsIdList.addAll((BasicDBList) ((BasicDBList) dateObject.get(dateFieldName)).get("comments"));
-//            }
-//        } finally {
-//            cursor.close();
-//        }
-
         return result;
     }
 
-    public BasicDBList readComments(BasicDBList ids) {
+    public BasicDBList readComments(Collection ids) {
         return readObjectsByIds(COMMENT_COLLECTION, ids);
     }
 
@@ -205,6 +194,25 @@ public class MongoFlickrDAO extends MongoDAO {
         return result;
     }
 
+    public long getUserCommentsCount(String userId) {
+        long result = 0L;
+        DBCursor cursor = database.getCollection(ACTIVITY_COLLECTION).find(new BasicDBObject("_id", Pattern.compile("^" + userId)), new BasicDBObject("comment", 1));
+        try {
+            while (cursor.hasNext()) {
+                DBObject activity = cursor.next();
+                if (activity.get("comment") != null) {
+                    DBObject comments = (DBObject) activity.get("comment");
+                    result += comments.keySet().size();
+
+                }
+            }
+        } finally {
+            cursor.close();
+        }
+
+        return result;
+    }
+
     public BasicDBList readPhotosFromActivity(int start, int length, String userId) {
         int end = start + length;
         int iterator = 0;
@@ -242,10 +250,41 @@ public class MongoFlickrDAO extends MongoDAO {
         return readPhotos(photoIdSet);
     }
 
-    public BasicDBList readPhotosFromActivity(String userId, int pageSize, int pageNum) {
-        int start = pageSize * (pageNum - 1);
-//        int end = (pageSize * pageNum) - 1;
-        return readPhotosFromActivity(start, pageSize, userId);
+    public BasicDBList readCommentsFromActivity(int start, int length, String userId) {
+        int end = start + length;
+        int iterator = 0;
+        Set<String> commentIdSet = new HashSet<String>();
+        DBCursor cursor = database.getCollection(ACTIVITY_COLLECTION).find(new BasicDBObject("_id", Pattern.compile("^" + userId)), new BasicDBObject("comment", 1));
+        try {
+            while (cursor.hasNext()) {
+                DBObject activity = cursor.next();
+                if (activity.get("comment") != null) {
+                    BasicDBList comments = new BasicDBList();
+                    comments.addAll(((DBObject) activity.get("comment")).keySet());
+                    if ((iterator + comments.size()) < start) {
+                        iterator += comments.size();
+                        continue;
+                    }
+                    for (Object commentObject : comments) {
+                        if (iterator < start) {
+                            iterator++;
+                            continue;
+                        }
+                        if (iterator > end) {
+                            return readComments(commentIdSet);
+                        }
+
+                        if (!commentIdSet.contains(commentObject)) {
+                            commentIdSet.add(commentObject.toString());
+                            iterator++;
+                        }
+                    }
+                }
+            }
+        } finally {
+            cursor.close();
+        }
+        return readComments(commentIdSet);
     }
 
     private DBObject readObjectById(String collectionName, String objectId) {

@@ -4,6 +4,7 @@ import com.mongodb.BasicDBList;
 import com.mongodb.DBObject;
 import gproject.client.service.FlickrService;
 import gproject.server.dao.MongoFlickrDAO;
+import gproject.shared.Comment;
 import gproject.shared.Photo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -34,10 +35,36 @@ public class FlickrServiceImpl implements FlickrService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String flickrUserId = userService.getFlickrUserId(auth.getName());
         if (flickrUserId != null) {
-            BasicDBList photosList = flickrDAO.readPhotosFromActivity(flickrUserId, 50, 1);
+            BasicDBList photosList = flickrDAO.readPhotosFromActivity(start, length, flickrUserId);
             result = new Photo[photosList.size()];
             for (int i = 0; i < result.length; i++) {
                 result[i] = Photo.parse(((DBObject) photosList.get(i)).toMap());
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public int getCommentCount() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String flickrUserId = userService.getFlickrUserId(auth.getName());
+        if (flickrUserId != null) {
+            return (int) flickrDAO.getUserCommentsCount(flickrUserId);
+        }
+        return 0;
+    }
+
+    @Override
+    public Comment[] getComments(int start, int length) {
+        Comment[] result = null;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String flickrUserId = userService.getFlickrUserId(auth.getName());
+        if (flickrUserId != null) {
+            BasicDBList commentsList = flickrDAO.readCommentsFromActivity(start, length, flickrUserId);
+            flickrDAO.insertCommentDependencies(commentsList);
+            result = new Comment[commentsList.size()];
+            for (int i = 0; i < result.length; i++) {
+                result[i] = Comment.parseMap(((DBObject) commentsList.get(i)).toMap());
             }
         }
         return result;

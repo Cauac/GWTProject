@@ -3,16 +3,17 @@ package gproject.client;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
+import gproject.client.presenter.CommentPresenter;
 import gproject.client.presenter.LoginPresenter;
 import gproject.client.presenter.PhotoPresenter;
 import gproject.client.presenter.Presenter;
 import gproject.client.service.AuthService;
 import gproject.client.service.AuthServiceAsync;
+import gproject.client.view.CommentView;
 import gproject.client.view.LoginView;
 import gproject.client.view.MenuView;
 import gproject.client.view.PhotoView;
@@ -55,6 +56,8 @@ public class AppController implements ValueChangeHandler<String> {
             } else if ("login".equals(token)) {
                 header.clear();
                 presenter = new LoginPresenter(LoginView.getInstance());
+            } else if ("comment".equals(token)) {
+                presenter = new CommentPresenter(CommentView.getInstance());
             }
 
             if (presenter != null) {
