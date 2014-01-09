@@ -4,9 +4,12 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.view.client.Range;
 import gproject.client.AppContext;
 import gproject.client.event.ShowPhotoDialog;
 import gproject.client.event.ShowPhotoDialogEventHandler;
+import gproject.client.event.ShowPhotoRange;
+import gproject.client.event.ShowPhotoRangeHandler;
 import gproject.client.service.FlickrService;
 import gproject.client.service.FlickrServiceAsync;
 import gproject.client.view.DialogView;
@@ -30,6 +33,12 @@ public class PhotoPresenter implements Presenter {
                 DialogView.getInstance().showPhoto(event.getPhoto());
             }
         });
+        eventBus.addHandler(ShowPhotoRange.TYPE, new ShowPhotoRangeHandler() {
+            @Override
+            public void show(ShowPhotoRange event) {
+                fetchPhoto(event.getRange());
+            }
+        });
     }
 
     @Override
@@ -37,19 +46,34 @@ public class PhotoPresenter implements Presenter {
         bind();
         container.clear();
         container.add(display.asWidget());
-        fetchPhoto();
+        fetchPhotoCount();
     }
 
-    public void fetchPhoto() {
-        flickrService.getPhotos(new AsyncCallback<Photo[]>() {
+    public void fetchPhotoCount() {
+        flickrService.getPhotoCount(new AsyncCallback<Integer>() {
             @Override
             public void onFailure(Throwable throwable) {
                 return;
             }
 
             @Override
-            public void onSuccess(Photo[] photos) {
-                display.showPhoto(photos);
+            public void onSuccess(Integer photoCount) {
+                display.setPhotoCount(photoCount);
+            }
+        });
+    }
+
+    public void fetchPhoto(Range range) {
+        final Range r = range;
+        flickrService.getPhotos(range.getStart(), range.getLength(), new AsyncCallback<Photo[]>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                return;
+            }
+
+            @Override
+            public void onSuccess(Photo[] result) {
+                display.setPhotoRange(r.getStart(), result);
             }
         });
     }

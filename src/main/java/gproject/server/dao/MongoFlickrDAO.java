@@ -205,9 +205,8 @@ public class MongoFlickrDAO extends MongoDAO {
         return result;
     }
 
-    public BasicDBList readPhotosFromActivity(String userId, int pageSize, int pageNum) {
-        int start = pageSize * (pageNum - 1);
-        int end = (pageSize * pageNum) - 1;
+    public BasicDBList readPhotosFromActivity(int start, int length, String userId) {
+        int end = start + length;
         int iterator = 0;
         Set<String> photoIdSet = new HashSet<String>();
         DBCursor cursor = database.getCollection(ACTIVITY_COLLECTION).find(new BasicDBObject("_id", Pattern.compile("^" + userId)), new BasicDBObject("photos", 1));
@@ -241,6 +240,12 @@ public class MongoFlickrDAO extends MongoDAO {
         }
 
         return readPhotos(photoIdSet);
+    }
+
+    public BasicDBList readPhotosFromActivity(String userId, int pageSize, int pageNum) {
+        int start = pageSize * (pageNum - 1);
+//        int end = (pageSize * pageNum) - 1;
+        return readPhotosFromActivity(start, pageSize, userId);
     }
 
     private DBObject readObjectById(String collectionName, String objectId) {

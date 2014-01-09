@@ -5,5 +5,7 @@ import gproject.shared.Photo;
 
 public interface FlickrServiceAsync {
 
-    void getPhotos(AsyncCallback<Photo[]> callback);
+    void getPhotoCount(AsyncCallback<Integer> callback);
+
+    void getPhotos(int start, int length, AsyncCallback<Photo[]> callback);
 }

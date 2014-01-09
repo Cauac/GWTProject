@@ -19,7 +19,17 @@ public class FlickrServiceImpl implements FlickrService {
     MongoFlickrDAO flickrDAO;
 
     @Override
-    public Photo[] getPhotos() {
+    public int getPhotoCount() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String flickrUserId = userService.getFlickrUserId(auth.getName());
+        if (flickrUserId != null) {
+            return (int) flickrDAO.getUserPhotoCount(flickrUserId);
+        }
+        return 0;
+    }
+
+    @Override
+    public Photo[] getPhotos(int start, int length) {
         Photo[] result = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String flickrUserId = userService.getFlickrUserId(auth.getName());
@@ -30,7 +40,6 @@ public class FlickrServiceImpl implements FlickrService {
                 result[i] = Photo.parse(((DBObject) photosList.get(i)).toMap());
             }
         }
-
         return result;
     }
 }

@@ -15,8 +15,10 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.RangeChangeEvent;
 import gproject.client.AppContext;
 import gproject.client.event.ShowPhotoDialog;
+import gproject.client.event.ShowPhotoRange;
 import gproject.shared.Photo;
 
 import java.util.Arrays;
@@ -46,15 +48,24 @@ public class PhotoView extends Composite implements Display {
 
     public PhotoView() {
         initWidget(uiBinder.createAndBindUi(this));
-    }
-
-    public void showPhoto(Photo[] photos) {
         cellTable.setWidth("100%", true);
         pager.setDisplay(cellTable);
-        ListDataProvider<Photo> dataProvider = new ListDataProvider<Photo>();
-        dataProvider.setList(Arrays.asList(photos));
-        dataProvider.addDataDisplay(cellTable);
         initColumns();
+        cellTable.addRangeChangeHandler(new RangeChangeEvent.Handler() {
+            @Override
+            public void onRangeChange(RangeChangeEvent event) {
+                AppContext.getInstance().getEventBus().fireEvent(new ShowPhotoRange(event.getNewRange()));
+            }
+        });
+    }
+
+    public void setPhotoCount(int photoCount) {
+        cellTable.setRowCount(photoCount);
+        AppContext.getInstance().getEventBus().fireEvent(new ShowPhotoRange(cellTable.getVisibleRange()));
+    }
+
+    public void setPhotoRange(int start, Photo[] photos) {
+        cellTable.setRowData(start, Arrays.asList(photos));
     }
 
     public void initColumns() {

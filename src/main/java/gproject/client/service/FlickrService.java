@@ -7,5 +7,7 @@ import gproject.shared.Photo;
 @RemoteServiceRelativePath("springGwtServices/flickrService")
 public interface FlickrService extends RemoteService {
 
-    public Photo[] getPhotos();
+    public int getPhotoCount();
+
+    public Photo[] getPhotos(int start, int length);
 }
