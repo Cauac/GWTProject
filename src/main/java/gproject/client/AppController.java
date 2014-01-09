@@ -21,12 +21,10 @@ import gproject.shared.UserInfo;
 public class AppController implements ValueChangeHandler<String> {
 
     private AuthServiceAsync authService = GWT.create(AuthService.class);
-    private final HandlerManager eventBus;
     private Panel header;
     private Panel content;
 
-    public AppController(HandlerManager eventBus) {
-        this.eventBus = eventBus;
+    public AppController() {
         header = RootPanel.get("header");
         content = RootPanel.get("content");
         bind();
@@ -53,7 +51,7 @@ public class AppController implements ValueChangeHandler<String> {
 
             if ("photo".equals(token)) {
                 header.add(MenuView.getInstance().asWidget());
-                presenter = new PhotoPresenter(eventBus, PhotoView.getInstance());
+                presenter = new PhotoPresenter(PhotoView.getInstance());
             } else if ("login".equals(token)) {
                 header.clear();
                 presenter = new LoginPresenter(LoginView.getInstance());

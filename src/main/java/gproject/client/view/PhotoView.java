@@ -15,6 +15,8 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.ListDataProvider;
+import gproject.client.AppContext;
+import gproject.client.event.ShowPhotoDialog;
 import gproject.shared.Photo;
 
 import java.util.Arrays;
@@ -28,6 +30,7 @@ public class PhotoView extends Composite implements Display {
     private static PhotoViewUiBinder uiBinder = GWT.create(PhotoViewUiBinder.class);
 
     static private PhotoView instance = null;
+
 
     public static PhotoView getInstance() {
         if (null == instance) {
@@ -103,8 +106,7 @@ public class PhotoView extends Composite implements Display {
             public void onCellPreview(CellPreviewEvent<Photo> event) {
                 if (event.getNativeEvent().getType().equals("mousedown")) {
                     Photo photo = event.getValue();
-                    Image image = new Image(photo.getLargeSizeUrl());
-                    DialogView.getInstance().show("Photo", image);
+                    AppContext.getInstance().getEventBus().fireEvent(new ShowPhotoDialog(photo));
                 }
             }
         });

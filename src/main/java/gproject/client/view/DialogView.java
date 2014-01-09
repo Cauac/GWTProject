@@ -3,6 +3,7 @@ package gproject.client.view;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.*;
+import gproject.shared.Photo;
 
 public class DialogView {
 
@@ -21,21 +22,24 @@ public class DialogView {
         dialogBox = new DialogBox();
         content = new VerticalPanel();
         VerticalPanel dialogPanel = new VerticalPanel();
+        dialogPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         dialogPanel.setSpacing(4);
         dialogPanel.add(content);
-        dialogPanel.add(new Button("Close", new ClickHandler() {
+        Button button = new Button("Close", new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
                 dialogBox.hide();
             }
-        }));
+        });
+        button.setStyleName("btn btn-primary");
+        dialogPanel.add(button);
         dialogBox.setWidget(dialogPanel);
     }
 
-    public void show(String caption, Widget widget) {
-        dialogBox.setText(caption);
+    public void showPhoto(Photo photo) {
+        dialogBox.setText(photo.getTitle());
         content.clear();
-        content.add(widget);
+        content.add(new Image(photo.getLargeSizeUrl()));
         dialogBox.center();
         dialogBox.show();
     }
