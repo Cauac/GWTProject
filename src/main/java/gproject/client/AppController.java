@@ -1,20 +1,26 @@
 package gproject.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import gproject.client.presenter.LoginPresenter;
 import gproject.client.presenter.PhotoPresenter;
 import gproject.client.presenter.Presenter;
+import gproject.client.service.AuthService;
+import gproject.client.service.AuthServiceAsync;
 import gproject.client.view.LoginView;
 import gproject.client.view.MenuView;
 import gproject.client.view.PhotoView;
+import gproject.shared.UserInfo;
 
 public class AppController implements ValueChangeHandler<String> {
 
+    private AuthServiceAsync authService = GWT.create(AuthService.class);
     private final HandlerManager eventBus;
     private Panel header;
     private Panel content;
@@ -32,7 +38,7 @@ public class AppController implements ValueChangeHandler<String> {
 
     public void go() {
         if ("".equals(History.getToken())) {
-            History.newItem("login");
+            openDefaultPage();
         } else {
             History.fireCurrentHistoryState();
         }
@@ -57,5 +63,23 @@ public class AppController implements ValueChangeHandler<String> {
                 presenter.go(content);
             }
         }
+    }
+
+    private void openDefaultPage() {
+        authService.getUserInfo(new AsyncCallback<UserInfo>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                return;
+            }
+
+            @Override
+            public void onSuccess(UserInfo userInfo) {
+                if ("ROLE_ANONYMOUS".equals(userInfo.getRole())) {
+                    History.newItem("login");
+                } else {
+                    History.newItem("photo");
+                }
+            }
+        });
     }
 }
