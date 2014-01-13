@@ -11,7 +11,16 @@
                 <input class="form-control input-lg" name="j_password" placeholder="password" type="password"/>
             </div>
             <button class="btn btn-primary btn-block" type="submit">Login</button>
+            <div class="row">
+                <div class="col-md-6">
+                    <g:Button ui:field="twitter" text="twitter"></g:Button>
+                </div>
+                <div class="col-md-6">
+                    <g:HTML ui:field="panel">
+                        <div id="fb-root"></div>
+                    </g:HTML>
+                </div>
+            </div>
         </form>
-        <g:Button ui:field="twitter" text="twitter"></g:Button>
     </g:HTMLPanel>
 </ui:UiBinder>
