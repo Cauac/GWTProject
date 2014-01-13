@@ -10,15 +10,18 @@
     <security:http auto-config="true" use-expressions="true">
         <security:intercept-url pattern="/gproject/springGwtServices/authService" access="permitAll"/>
         <security:intercept-url pattern="/gproject/springGwtServices/*" access="hasAuthority('ROLE_USER')"/>
-
-        <!--<security:intercept-url pattern="/gproject/**" access="permitAll"/>-->
         <security:form-login default-target-url="/#photo"/>
+        <security:custom-filter before="FORM_LOGIN_FILTER" ref="facebookLoginFilter"/>
     </security:http>
 
     <bean id="customService" class="gproject.server.services.DBUserProvider"/>
+    <bean id="facebookProvider" class="gproject.server.services.SocialUserProvider"/>
 
+    <bean id="facebookLoginFilter" class="gproject.server.services.SocialAuthenticationFilter">
+        <property name="authenticationManager" ref="am"/>
+    </bean>
 
-    <security:authentication-manager>
+    <security:authentication-manager alias="am">
         <security:authentication-provider user-service-ref="customService"/>
     </security:authentication-manager>
 </beans>

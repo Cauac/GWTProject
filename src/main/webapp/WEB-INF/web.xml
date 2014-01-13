@@ -39,6 +39,21 @@
     </listener>
 
     <servlet>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/application-context.xml</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <url-pattern>/servlet/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>GPoject</servlet-name>
         <servlet-class>org.spring4gwt.server.SpringGwtRemoteServiceServlet</servlet-class>
         <load-on-startup>1</load-on-startup>

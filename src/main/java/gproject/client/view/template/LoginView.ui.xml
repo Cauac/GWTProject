@@ -12,5 +12,6 @@
             </div>
             <button class="btn btn-primary btn-block" type="submit">Login</button>
         </form>
+        <g:Button ui:field="twitter" text="twitter"></g:Button>
     </g:HTMLPanel>
 </ui:UiBinder>

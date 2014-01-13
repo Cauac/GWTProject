@@ -6,4 +6,6 @@ import gproject.shared.UserInfo;
 public interface AuthServiceAsync {
 
     void getUserInfo(AsyncCallback<UserInfo> callback);
+
+    void getTwitterAuthUrl(AsyncCallback<String> callback);
 }

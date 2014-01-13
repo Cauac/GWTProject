@@ -26,4 +26,9 @@
         <property name="mongoClient" ref="MongoClient"/>
         <property name="dbName" value="local"/>
     </bean>
+
+    <bean class="org.springframework.social.twitter.connect.TwitterConnectionFactory">
+        <constructor-arg index="0" value="Hhu4qypH019vyiCHp3PYBA"/>
+        <constructor-arg index="1" value="xvENpfhxW5I7ClWGO4tNAojh2FVlZQ9wgElKgzyaUrI"/>
+    </bean>
 </beans>

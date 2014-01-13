@@ -8,4 +8,6 @@ import gproject.shared.UserInfo;
 public interface AuthService extends RemoteService {
 
     UserInfo getUserInfo();
+
+    String getTwitterAuthUrl();
 }
