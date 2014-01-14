@@ -3,6 +3,8 @@
 <module rename-to='gproject'>
     <inherits name='com.google.gwt.user.User'/>
     <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+    <inherits name="com.google.gwt.json.JSON"/>
+    <inherits name="org.moxieapps.gwt.highcharts.Highcharts"/>
     <entry-point class='gproject.client.Main'/>
     <source path='client'/>
     <source path='shared'/>

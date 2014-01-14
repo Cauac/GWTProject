@@ -13,4 +13,6 @@ public interface FlickrServiceAsync {
     void getCommentCount(AsyncCallback<Integer> callback);
 
     void getComments(int start, int length, AsyncCallback<Comment[]> callback);
+
+    void getCommentsByPhoto(String photoId, AsyncCallback<String> callback);
 }

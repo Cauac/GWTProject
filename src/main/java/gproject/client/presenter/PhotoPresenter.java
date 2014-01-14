@@ -12,7 +12,7 @@ import gproject.client.event.ShowPhotoRange;
 import gproject.client.event.ShowPhotoRangeHandler;
 import gproject.client.service.FlickrService;
 import gproject.client.service.FlickrServiceAsync;
-import gproject.client.view.DialogView;
+import gproject.client.view.PhotoDialogView;
 import gproject.client.view.PhotoView;
 import gproject.shared.Photo;
 
@@ -29,8 +29,18 @@ public class PhotoPresenter implements Presenter {
         HandlerManager eventBus = AppContext.getInstance().getEventBus();
         eventBus.addHandler(ShowPhotoDialog.TYPE, new ShowPhotoDialogEventHandler() {
             @Override
-            public void onShow(ShowPhotoDialog event) {
-                DialogView.getInstance().showPhoto(event.getPhoto());
+            public void onShow(final ShowPhotoDialog event) {
+                flickrService.getCommentsByPhoto(event.getPhoto().getId(), new AsyncCallback<String>() {
+                    @Override
+                    public void onFailure(Throwable caught) {
+                        return;
+                    }
+
+                    @Override
+                    public void onSuccess(String result) {
+                        PhotoDialogView.getInstance().showPhoto(event.getPhoto(), result);
+                    }
+                });
             }
         });
         eventBus.addHandler(ShowPhotoRange.TYPE, new ShowPhotoRangeHandler() {
@@ -63,8 +73,7 @@ public class PhotoPresenter implements Presenter {
         });
     }
 
-    public void fetchPhoto(Range range) {
-        final Range r = range;
+    public void fetchPhoto(final Range range) {
         flickrService.getPhotos(range.getStart(), range.getLength(), new AsyncCallback<Photo[]>() {
             @Override
             public void onFailure(Throwable caught) {
@@ -73,7 +82,7 @@ public class PhotoPresenter implements Presenter {
 
             @Override
             public void onSuccess(Photo[] result) {
-                display.setPhotoRange(r.getStart(), result);
+                display.setPhotoRange(range.getStart(), result);
             }
         });
     }

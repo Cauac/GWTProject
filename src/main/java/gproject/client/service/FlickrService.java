@@ -15,4 +15,6 @@ public interface FlickrService extends RemoteService {
     public int getCommentCount();
 
     public Comment[] getComments(int start, int length);
+
+    public String getCommentsByPhoto(String photoId);
 }

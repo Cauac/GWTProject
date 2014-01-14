@@ -69,4 +69,10 @@ public class FlickrServiceImpl implements FlickrService {
         }
         return result;
     }
+
+    @Override
+    public String getCommentsByPhoto(String photoId) {
+        DBObject result = flickrDAO.readCommentsByPhotoId(photoId);
+        return result.toString();
+    }
 }
