@@ -1,0 +1,19 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel styleName="row">
+        <div class="well col-xs-6 col-xs-offset-3">
+            <div class="row">
+                <div class="col-xs-4">
+                    <img width="50" height="50" src="resources/flickr.png"></img>
+                </div>
+                <div class="col-xs-4">
+                    <label>
+                        <a href="http://flickr.com">Flickr</a>
+                    </label>
+                </div>
+                <div class="col-xs-4">
+                    <g:Button ui:field="flickrBtn" text="Allow access"></g:Button>
+                </div>
+            </div>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

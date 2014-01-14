@@ -15,11 +15,7 @@ import gproject.shared.Comment;
 public class CommentPresenter implements Presenter {
 
     private FlickrServiceAsync flickrService = GWT.create(FlickrService.class);
-    private final CommentView display;
-
-    public CommentPresenter(CommentView display) {
-        this.display = display;
-    }
+    private final CommentView display=CommentView.getInstance();
 
     private void bind() {
         AppContext.getInstance().getEventBus().addHandler(ShowCommentRange.TYPE, new ShowCommentRangeHandler() {

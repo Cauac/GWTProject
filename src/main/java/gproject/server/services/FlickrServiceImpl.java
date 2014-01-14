@@ -18,6 +18,20 @@ public class FlickrServiceImpl implements FlickrService {
     UserService userService;
     @Autowired
     MongoFlickrDAO flickrDAO;
+    @Autowired
+    gproject.server.services.FlickrService flickrService;
+
+    @Override
+    public String getAuthUrl() {
+        flickrService.init();
+        return flickrService.getAuthorizationUrl();
+    }
+
+    @Override
+    public boolean hasFlickrToken() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return userService.getUserFlickrTokenInfo(auth.getName()) != null;
+    }
 
     @Override
     public int getPhotoCount() {

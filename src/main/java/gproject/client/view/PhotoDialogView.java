@@ -49,6 +49,14 @@ public class PhotoDialogView {
         dialogBox.setWidget(dialogPanel);
     }
 
+    public void showEmptyDialog(Photo photo){
+        dialogBox.setText(photo.getTitle());
+        content.clear();
+        content.add(new Label("Comments not found"));
+        dialogBox.center();
+        dialogBox.show();
+    }
+
     public void showPhoto(Photo photo, String jsonData) {
         JSONObject data = JSONParser.parseStrict(jsonData).isObject();
         JSONArray comments = data.get("comments").isArray();

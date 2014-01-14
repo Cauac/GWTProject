@@ -31,4 +31,9 @@
         <constructor-arg index="0" value="Hhu4qypH019vyiCHp3PYBA"/>
         <constructor-arg index="1" value="xvENpfhxW5I7ClWGO4tNAojh2FVlZQ9wgElKgzyaUrI"/>
     </bean>
+    <bean class="gproject.server.services.FlickrService">
+        <property name="key" value="1385f8e7e384291af2c42ddcba583fe1"/>
+        <property name="secret" value="eb6c32e797653750"/>
+        <property name="callback" value="http://127.0.0.1:8080/servlet/getFlickrAccessToken"/>
+    </bean>
 </beans>

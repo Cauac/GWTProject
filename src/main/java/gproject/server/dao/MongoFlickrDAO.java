@@ -101,6 +101,9 @@ public class MongoFlickrDAO extends MongoDAO {
 
     public DBObject readCommentsByPhotoId(String id) {
         DBObject photo = database.getCollection(PHOTO_COMMENT_COLLECTION).findOne(new BasicDBObject("_id", id));
+        if (photo == null) {
+            photo=new BasicDBObject();
+        }
         photo.removeField("favesCount");
         photo.removeField("itemOwner");
         photo.removeField("commentsCount");

@@ -7,10 +7,7 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
-import gproject.client.presenter.CommentPresenter;
-import gproject.client.presenter.LoginPresenter;
-import gproject.client.presenter.PhotoPresenter;
-import gproject.client.presenter.Presenter;
+import gproject.client.presenter.*;
 import gproject.client.service.AuthService;
 import gproject.client.service.AuthServiceAsync;
 import gproject.client.view.CommentView;
@@ -57,7 +54,11 @@ public class AppController implements ValueChangeHandler<String> {
                 header.clear();
                 presenter = new LoginPresenter(LoginView.getInstance());
             } else if ("comment".equals(token)) {
-                presenter = new CommentPresenter(CommentView.getInstance());
+                presenter = new CommentPresenter();
+            } else if ("account".equals(token)) {
+                header.clear();
+                header.add(MenuView.getInstance().asWidget());
+                presenter = new AccountPresenter();
             }
 
             if (presenter != null) {
