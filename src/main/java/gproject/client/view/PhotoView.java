@@ -85,13 +85,13 @@ public class PhotoView extends Composite implements Display {
         cellTable.addColumn(new TextColumn<Photo>() {
             @Override
             public String getValue(Photo object) {
-                return DateTimeFormat.getFormat("dd-MM-yyyy").format(object.getDateupload());
+                return DateTimeFormat.getFormat("dd-MM-yyyy HH:mm").format(object.getDateupload());
             }
         }, "Date Upload");
         cellTable.addColumn(new TextColumn<Photo>() {
             @Override
             public String getValue(Photo object) {
-                return DateTimeFormat.getFormat("dd-MM-yyyy").format(object.getLastupdate());
+                return DateTimeFormat.getFormat("dd-MM-yyyy HH:mm").format(object.getLastupdate());
             }
         }, "Last Update");
         cellTable.addColumn(new Column<Photo, String>(new ImageCell(75, 75)) {
